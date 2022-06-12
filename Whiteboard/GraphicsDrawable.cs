@@ -59,10 +59,6 @@ namespace Com.Gitusme.Whiteboard
             // 绘制正在操作的Stroke
             if (ProgressStroke != null)
             {
-                //ProgressStroke.Shape.Stroke = new SolidColorBrush(Colors.Black);
-                //ProgressStroke.Shape.StrokeThickness = 1;
-                //ProgressStroke.Shape.StrokeDashArray = new float[] { 3, 3 };
-                //ProgressStroke.Shape.StrokeDashOffset = 8;
                 ProgressStroke.Draw(canvas);
             }
             //Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)   "/data/user/0/com.companyname.mauiapp1/files"
