@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Com.Gitusme.Whiteboard.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Com.Gitusme.Whiteboard"
+    Title="电子白板"
+    Shell.FlyoutBehavior="Disabled">
+
+    <!--<FlyoutItem Title="Cats"
+                Icon="cat.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:CatsPage}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Dogs"
+                Icon="dog.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:DogsPage}" />
+        </Tab>
+    </FlyoutItem>-->
+
+    <ShellContent
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+</Shell>

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:drawable="clr-namespace:Com.Gitusme.Whiteboard"
+             x:Class="Com.Gitusme.Whiteboard.MainPage">
+
+    <Grid RowSpacing="0" ColumnSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="32"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <GraphicsView Grid.Row="0" Grid.Column="1"
+                x:Name="GraphicsView"
+                Drawable="{StaticResource drawable}"
+                HorizontalOptions="Center"
+                WidthRequest="2048"
+                HeightRequest="2048">
+
+        </GraphicsView>
+
+        <Grid Grid.Row="0" Grid.Column="0" VerticalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Margin="2,1,0,0"
+                    Stroke="#DEDEDE" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5" >
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label Text="常用" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
+                    <ImageButton Margin="1" x:Name="save" Source="tool_save.png" HeightRequest="28" WidthRequest="28" Clicked="save_Clicked"/>
+                    <ImageButton Margin="1" x:Name="clear" Source="tool_clear.png" HeightRequest="28" WidthRequest="28" Clicked="clear_Clicked"/>
+                    <ImageButton Margin="1" x:Name="undo" Source="tool_undo.png" HeightRequest="28" WidthRequest="28" Clicked="undo_Clicked"/>
+                    <ImageButton Margin="1" x:Name="redo" Source="tool_redo.png" HeightRequest="28" WidthRequest="28" Clicked="redo_Clicked"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0" Margin="2,1,0,0"
+                    Stroke="#DEDEDE" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5" >
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label Text="工具" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
+                    <ImageButton Margin="1" x:Name="pen" Source="tool_pen.png" HeightRequest="28" WidthRequest="28" Clicked="strokeMode_Clicked"/>
+                    <ImageButton Margin="1" x:Name="eraser" Source="tool_eraser.png" HeightRequest="28" WidthRequest="28" Clicked="strokeMode_Clicked"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="2" Grid.Column="0" Margin="2,1,0,0"
+                    Stroke="#DEDEDE" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5" >
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label Text="形状" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
+                    <ImageButton Margin="1" x:Name="line" Source="tool_line.png" HeightRequest="28" WidthRequest="28" Clicked="strokeMode_Clicked"/>
+                    <ImageButton Margin="1" x:Name="ellipse" Source="tool_circle.png" HeightRequest="28" WidthRequest="28" Clicked="strokeMode_Clicked"/>
+                    <ImageButton Margin="1" x:Name="rectangle" Source="tool_rectangle.png" HeightRequest="28" WidthRequest="28" Clicked="strokeMode_Clicked"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="0" Margin="2,1,0,0"
+                    Stroke="#DEDEDE" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5" >
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label Text="大小" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
+                    <ImageButton Margin="1" x:Name="strokeSizeSmall" Source="tool_size_one.png" HeightRequest="28" WidthRequest="28" Clicked="strokeSize_Clicked"/>
+                    <ImageButton Margin="1" x:Name="strokeSize" Source="tool_size_two.png" HeightRequest="28" WidthRequest="28" Clicked="strokeSize_Clicked"/>
+                    <ImageButton Margin="1" x:Name="strokeSizeLarge" Source="tool_size_six.png" HeightRequest="28" WidthRequest="28" Clicked="strokeSize_Clicked"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="4" Grid.Column="0" Margin="2,1,0,0"
+                    Stroke="#DEDEDE" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5" >
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label Text="颜色" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
+                    <ImageButton Margin="1" x:Name="strokeColorBlack" Source="tool_color_black.png" HeightRequest="28" WidthRequest="28" Clicked="strokeColor_Clicked"/>
+                    <ImageButton Margin="1" x:Name="strokeColorRed" Source="tool_color_red.png" HeightRequest="28" WidthRequest="28" Clicked="strokeColor_Clicked"/>
+                    <ImageButton Margin="1" x:Name="strokeColorBlue" Source="tool_color_blue.png" HeightRequest="28" WidthRequest="28" Clicked="strokeColor_Clicked"/>
+                    <ImageButton Margin="1" x:Name="strokeColorYellow" Source="tool_color_yellow.png" HeightRequest="28" WidthRequest="28" Clicked="strokeColor_Clicked"/>
+                    <ImageButton Margin="1" x:Name="strokeColorGreen" Source="tool_color_green.png" HeightRequest="28" WidthRequest="28" Clicked="strokeColor_Clicked"/>
+                </VerticalStackLayout>
+            </Border>
+            
+        </Grid>
+
+    </Grid>
+
+    <ContentPage.Resources>
+
+        <!-- https://docs.microsoft.com/zh-cn/dotnet/maui/user-interface/graphics/draw -->
+
+        <drawable:GraphicsDrawable
+            x:Key="drawable"
+            x:Name="GraphicsDrawable"/>
+
+    </ContentPage.Resources>
+
+</ContentPage>

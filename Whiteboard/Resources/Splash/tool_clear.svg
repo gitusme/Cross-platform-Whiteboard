@@ -1,0 +1,14 @@
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" color="#1785C6" fill="none" stroke-linejoin="round" stroke-linecap="round" stroke="#1785C6" aria-labelledby="turnRightIconTitle" role="img">
+  <title id="turnRightIconTitle">Turn Right</title>
+
+  <g>
+    <title>Layer 1</title>
+    <g stroke="null" id="svg_11">
+      <line stroke="null" fill="none" id="svg_5" y2="9.14334" x2="23.70142" y1="9.27252" x1="7.44499"/>
+      <rect stroke="null" rx="1" id="svg_6" height="15.88979" width="11.71976" y="9.14334" x="9.65032"/>
+      <line stroke="null" fill="none" id="svg_7" y2="21.93268" x2="13.49389" y1="13.92319" x1="13.49389"/>
+      <rect stroke="null" id="svg_9" height="2.19615" width="8.06521" y="6.94719" x="11.35157"/>
+      <line stroke="null" fill="none" id="svg_10" y2="21.93268" x2="17.21145" y1="13.92319" x1="17.21145"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" color="#1785C6" fill="none" stroke-linejoin="round" stroke-linecap="round" stroke="#1785C6" aria-labelledby="turnRightIconTitle" role="img">
+  <title id="turnRightIconTitle">Turn Right</title>
+
+  <g>
+    <title>Layer 1</title>
+    <path id="svg_1" d="m7.32166,23.67376c0,-6.28914 5.34493,-10.3875 11.93824,-10.3875l3.34683,0"/>
+    <polyline id="svg_2" points="18.60671043395996,8.286254536360502 23.606691360473633,13.286290775984526 18.60671043395996,18.28624976798892 18.60671043395996,18.28624976798892 "/>
+  </g>
+</svg>

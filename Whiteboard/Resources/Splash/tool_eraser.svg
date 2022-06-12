@@ -1,0 +1,11 @@
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" color="#1785C6" fill="none" stroke-linejoin="round" stroke-linecap="round" stroke="#1785C6" aria-labelledby="smartphoneIconTitle" role="img">
+  <title id="smartphoneIconTitle">Smartphone</title>
+
+  <g>
+    <title>Layer 1</title>
+    <path transform="rotate(34.4045 15.4889 15.9803)" stroke="null" id="svg_1" d="m21.48893,8.01266l0,15.93524c0,0.48893 -0.44772,0.88529 -1,0.88529l-10,0c-0.55228,0 -1,-0.39636 -1,-0.88529l0,-15.93524c0,-0.48893 0.44772,-0.88529 1,-0.88529l10,0c0.55228,0 1,0.39636 1,0.88529z" stroke-linejoin="round"/>
+    <line transform="rotate(32.8032 12.2758 21.4823)" id="svg_2" y2="21.48224" x2="13.2758" y1="21.48224" x1="11.2758"/>
+    <line transform="rotate(0.587794 15.1056 26.3096)" stroke="null" id="svg_3" y2="26.30956" x2="20.59004" y1="26.30956" x1="9.62121"/>
+    <line transform="rotate(32.8032 18.8164 10.917)" stroke="null" id="svg_4" y2="10.91698" x2="23.0273" y1="10.91698" x1="14.6055"/>
+  </g>
+</svg>
