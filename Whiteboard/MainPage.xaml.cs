@@ -170,7 +170,7 @@ public partial class MainPage : ContentPage
 
     private void save_Clicked(object sender, EventArgs e)
     {
-        GraphicsDrawable.Save();
+        GraphicsDrawable.Save(GraphicsView.CaptureAsync());
     }
 
     private void clear_Clicked(object sender, EventArgs e)

@@ -16,9 +16,7 @@
         <GraphicsView Grid.Row="0" Grid.Column="1"
                 x:Name="GraphicsView"
                 Drawable="{StaticResource drawable}"
-                HorizontalOptions="Center"
-                WidthRequest="2048"
-                HeightRequest="2048">
+                HorizontalOptions="Center">
 
         </GraphicsView>
 

@@ -1,4 +1,5 @@
-﻿using Com.Gitusme.Whiteboard.Strokes;
+﻿using Com.Gitusme.Whiteboard.Platforms;
+using Com.Gitusme.Whiteboard.Strokes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,10 @@ namespace Com.Gitusme.Whiteboard
 
         public void Draw(ICanvas canvas, RectF dirtyRect)
         {
+            // 绘制背景
+            canvas.StrokeSize = 0;
+            canvas.FillColor = Colors.White;
+            canvas.FillRectangle(dirtyRect);
             // 绘制历史Stroke
             foreach (Stroke stroke in _strokes.Reverse())
             {
@@ -61,7 +66,6 @@ namespace Com.Gitusme.Whiteboard
             {
                 ProgressStroke.Draw(canvas);
             }
-            //Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)   "/data/user/0/com.companyname.mauiapp1/files"
         }
 
         public void AddStroke(Stroke shape)
@@ -92,9 +96,23 @@ namespace Com.Gitusme.Whiteboard
             }
         }
 
-        public void Save()
+        public async void Save(Task<IScreenshotResult> screenshot)
         {
-
+            IScreenshotResult result = await screenshot;
+            using (Stream stream = await result.OpenReadAsync())
+            {
+                PlatformService platformService = new PlatformService();
+                string dir = platformService.GetStoragePath();
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+                string datetime = DateTime.Now.ToString("yyyyMMddhhmmss");
+                using (FileStream fileStream = new FileStream(Path.Combine(dir, $"Whiteboard-{datetime}.png"), FileMode.OpenOrCreate))
+                {
+                    stream.CopyTo(fileStream);
+                }
+            }
         }
 
         public void Clear()
