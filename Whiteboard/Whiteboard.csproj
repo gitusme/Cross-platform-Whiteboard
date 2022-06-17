@@ -36,37 +36,43 @@
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	  <AndroidKeyStore>False</AndroidKeyStore>
 	  <AndroidEnableMultiDex>True</AndroidEnableMultiDex>
-	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
 	  <AndroidKeyStore>False</AndroidKeyStore>
 	  <AndroidEnableMultiDex>True</AndroidEnableMultiDex>
-	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
 	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|AnyCPU'">
 	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-maccatalyst|AnyCPU'">
 	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-maccatalyst|AnyCPU'">
 	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows10.0.19041.0|AnyCPU'">
 	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows10.0.19041.0|AnyCPU'">
 	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -91,8 +97,6 @@
 		<MauiImage Include="Resources\Splash\tool_undo.svg" />
 		<MauiImage Include="Resources\Splash\tool_zoomin.svg" />
 		<MauiImage Include="Resources\Splash\tool_zoomout.svg" />
-    
-		<MauiSplashScreen Include="Resources\Splash\splashscreen.png" BaseSize="480,360" Resize="true" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -105,6 +109,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Splash\splashscreen.svg" />
 	  <None Remove="Resources\Splash\tool_clear.svg" />
 	  <None Remove="Resources\Splash\tool_color_black.svg" />
 	  <None Remove="Resources\Splash\tool_color_blue.svg" />
@@ -129,6 +134,10 @@
 
 	<ItemGroup>
 	  <Folder Include="Resources\Images\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiSplashScreen Include="Resources\Splash\splashscreen.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

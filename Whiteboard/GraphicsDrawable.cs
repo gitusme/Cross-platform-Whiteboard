@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Com.Gitusme.Whiteboard
 {
@@ -96,23 +97,11 @@ namespace Com.Gitusme.Whiteboard
             }
         }
 
-        public async void Save(Task<IScreenshotResult> screenshot)
+        public void Save(Task<IScreenshotResult> screenshot)
         {
-            IScreenshotResult result = await screenshot;
-            using (Stream stream = await result.OpenReadAsync())
-            {
-                PlatformService platformService = new PlatformService();
-                string dir = platformService.GetStoragePath();
-                if (!Directory.Exists(dir))
-                {
-                    Directory.CreateDirectory(dir);
-                }
-                string datetime = DateTime.Now.ToString("yyyyMMddhhmmss");
-                using (FileStream fileStream = new FileStream(Path.Combine(dir, $"Whiteboard-{datetime}.png"), FileMode.OpenOrCreate))
-                {
-                    stream.CopyTo(fileStream);
-                }
-            }
+            GraphicsWriter writer = new GraphicsWriter();
+            writer.WriteToPictrue(screenshot);
+            writer.WriteToXml(_strokes.ToArray());
         }
 
         public void Clear()

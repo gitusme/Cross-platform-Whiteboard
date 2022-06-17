@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Com.Gitusme.Whiteboard.Strokes
 {
+    [Serializable]
     public class Ellipse : Stroke
     {
         public Ellipse()
