@@ -78,6 +78,11 @@
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiImage Include="Resources\Splash\about.svg">
+		  <BaseSize>168,208</BaseSize>
+		</MauiImage>
+		<MauiImage Include="Resources\Splash\opt_more.svg" />
+		<MauiImage Include="Resources\Splash\opt_more_vertical.svg" />
 		<MauiImage Include="Resources\Splash\tool_circle.svg" />
 		<MauiImage Include="Resources\Splash\tool_color_green.svg" />
 		<MauiImage Include="Resources\Splash\tool_color_yellow.svg" />
@@ -109,6 +114,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Splash\about.svg" />
+	  <None Remove="Resources\Splash\opt_more.svg" />
+	  <None Remove="Resources\Splash\opt_more_vertical.svg" />
 	  <None Remove="Resources\Splash\splashscreen.svg" />
 	  <None Remove="Resources\Splash\tool_clear.svg" />
 	  <None Remove="Resources\Splash\tool_color_black.svg" />
@@ -147,6 +155,12 @@
 	  <Compile Update="Platforms\MacCatalyst\PlatformService.cs">
 	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="AboutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

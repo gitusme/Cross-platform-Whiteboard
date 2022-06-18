@@ -11,6 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="32"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         
         <GraphicsView Grid.Row="0" Grid.Column="1"
@@ -86,6 +87,33 @@
             
         </Grid>
 
+        <Grid Grid.Row="0" Grid.Column="2" HorizontalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="32"/>
+            </Grid.ColumnDefinitions>
+            <VerticalStackLayout Grid.Row="0" Grid.Column="0"
+                   x:Name="menuBar" VerticalOptions="Center" Margin="0,2,2,0" IsVisible="false">
+                <Border x:Name="contactBorder"
+                    Stroke="#f4f4f4" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5">
+                    <Button x:Name="contact" Text="联系作者" TextColor="#999" BackgroundColor="Transparent" FontSize="12"
+                            Clicked="contact_Clicked"/>
+                </Border>
+                <Border
+                    Stroke="#f4f4f4" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5">
+                    <Button x:Name="about" Text="关于" TextColor="#999" BackgroundColor="Transparent" FontSize="12"
+                            Clicked="about_Clicked"/>
+                </Border>
+            </VerticalStackLayout>
+            <ImageButton Grid.Row="0" Grid.Column="1"
+                 x:Name="more" 
+                 Margin="1" Source="opt_more_vertical.png" HeightRequest="28" WidthRequest="28"
+                    Clicked="more_Clicked"/>
+        </Grid>
+            
     </Grid>
 
     <ContentPage.Resources>

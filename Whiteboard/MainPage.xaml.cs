@@ -242,5 +242,49 @@ public partial class MainPage : ContentPage
     {
         _strokeSize = strokeSize;
     }
+
+    private void more_Clicked(object sender, EventArgs e)
+    {
+        menuBar.IsVisible = !menuBar.IsVisible;
+        contactBorder.IsVisible = menuBar.IsVisible && Email.Default.IsComposeSupported;
+        more.Source = ImageSource.FromFile(menuBar.IsVisible ? "opt_more.png" : "opt_more_vertical.png");
+    }
+
+    private void more_Released(object sender, EventArgs e)
+    {
+        menuBar.IsVisible = false;
+    }
+
+    private async void contact_Clicked(object sender, EventArgs e)
+    {
+        more_Clicked(sender, e);
+        await SendEmail();
+    }
+
+    private async Task SendEmail()
+    {
+        if (Email.Default.IsComposeSupported)
+        {
+            string subject = "Hello friends!";
+            string body = "It was great to see you last weekend.";
+            string[] recipients = new[] { "j526180212@outlook.com" };
+
+            var message = new EmailMessage
+            {
+                Subject = subject,
+                Body = body,
+                BodyFormat = EmailBodyFormat.PlainText,
+                To = new List<string>(recipients)
+            };
+
+            await Email.Default.ComposeAsync(message);
+        }
+    }
+
+    private async void about_Clicked(object sender, EventArgs e)
+    {
+        more_Clicked(sender, e);
+        await Shell.Current.GoToAsync("//AboutPage");
+    }
 }
 
