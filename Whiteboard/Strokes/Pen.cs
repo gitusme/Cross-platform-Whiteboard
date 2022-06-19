@@ -21,9 +21,9 @@ namespace Com.Gitusme.Whiteboard.Strokes
             this._color = color;
         }
 
-        public override void Update(PointF start, PointF end, Color strokeColor, float strokeSize)
+        public override void Update(PointF start, PointF end, Color strokeColor, Color fillColor, double strokeSize)
         {
-            base.Update(start, end, strokeColor, strokeSize);
+            base.Update(start, end, strokeColor, fillColor, strokeSize);
             Microsoft.Maui.Controls.Shapes.Path path = Shape as Microsoft.Maui.Controls.Shapes.Path;
             if (path != null)
             {

@@ -78,6 +78,8 @@
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiImage Include="Resources\Splash\tool_color_transparent.svg" />
+		<MauiImage Include="Resources\Splash\tool_color_white.svg" />
 		<MauiImage Include="Resources\Splash\about.svg">
 		  <BaseSize>168,208</BaseSize>
 		</MauiImage>
@@ -114,6 +116,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\MacCatalyst\tool_color_white.svg" />
 	  <None Remove="Resources\Splash\about.svg" />
 	  <None Remove="Resources\Splash\opt_more.svg" />
 	  <None Remove="Resources\Splash\opt_more_vertical.svg" />
@@ -123,6 +126,7 @@
 	  <None Remove="Resources\Splash\tool_color_blue.svg" />
 	  <None Remove="Resources\Splash\tool_color_green.svg" />
 	  <None Remove="Resources\Splash\tool_color_red.svg" />
+	  <None Remove="Resources\Splash\tool_color_transparent.svg" />
 	  <None Remove="Resources\Splash\tool_color_yellow.svg" />
 	  <None Remove="Resources\Splash\tool_eraser.svg" />
 	  <None Remove="Resources\Splash\tool_save.svg" />

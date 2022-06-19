@@ -13,9 +13,9 @@ namespace Com.Gitusme.Whiteboard.Strokes
         {
         }
 
-        public override void Update(PointF start, PointF end, Color strokeColor, float strokeSize)
+        public override void Update(PointF start, PointF end, Color strokeColor, Color fillColor, double strokeSize)
         {
-            base.Update(start, end, Colors.White, strokeSize);
+            base.Update(start, end, strokeColor, Colors.Transparent, strokeSize);
         }
 
     }

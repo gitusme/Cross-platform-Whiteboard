@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Com.Gitusme.Whiteboard.Strokes
 {
     [Serializable]
-    public class Rectangle : Stroke
+    public class Star : Stroke
     {
-        public Rectangle()
+        public Star()
         {
             Shape = new Microsoft.Maui.Controls.Shapes.Rectangle();
         }
@@ -22,18 +22,7 @@ namespace Com.Gitusme.Whiteboard.Strokes
                 canvas.DrawRectangle(
                     (float)Shape.TranslationX, (float)Shape.TranslationY,
                     (float)Shape.WidthRequest, (float)Shape.HeightRequest);
-                canvas.FillRectangle(
-                    (float)Shape.TranslationX, (float)Shape.TranslationY,
-                    (float)Shape.WidthRequest, (float)Shape.HeightRequest);
             }
-        }
-
-        public override bool Contains(PointF point)
-        {
-            var x = point.X;
-            var y = point.Y;
-            return (x >= Shape.TranslationX && x <= Shape.TranslationX + Shape.WidthRequest) &&
-                (y >= Shape.TranslationY && y <= Shape.TranslationY + Shape.HeightRequest);
         }
     }
 }

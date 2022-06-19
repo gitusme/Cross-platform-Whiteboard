@@ -14,6 +14,8 @@ namespace Com.Gitusme.Whiteboard
     /// </summary>
     public class GraphicsDrawable : IDrawable
     {
+        public Color CanvasColor { get; set; } = Colors.White;
+
         public DrawMode Mode { get; set; } = DrawMode.None;
 
         public Stroke ProgressStroke { get; set; }
@@ -22,7 +24,7 @@ namespace Com.Gitusme.Whiteboard
 
         private Stack<Stroke> _undoStrokes { get; set; } = new Stack<Stroke>();
 
-        public Stroke CreateShape(PointF start, PointF end, Color strokeColor, float strokeSize)
+        public Stroke CreateShape(PointF start, PointF end, Color strokeColor, Color fillColor, float strokeSize)
         {
             Stroke shape = null;
             switch (Mode)
@@ -34,6 +36,16 @@ namespace Com.Gitusme.Whiteboard
                     break;
                 case DrawMode.Eraser:
                     shape = new Eraser();
+                    strokeColor = CanvasColor == Colors.Black ? Colors.Black : Colors.White;
+                    strokeSize = 2 * strokeSize;
+                    break;
+                case DrawMode.Text:
+                    shape = new Text();
+                    break;
+                case DrawMode.Fill:
+                    shape = _strokes.ToList().Find((it) => {
+                        return it.Contains(start);
+                    });
                     break;
                 case DrawMode.Line:
                     shape = new Line();
@@ -41,13 +53,14 @@ namespace Com.Gitusme.Whiteboard
                 case DrawMode.Ellipse:
                     shape = new Ellipse();
                     break;
+                case DrawMode.Star:
+                    shape = new Star();
+                    break;
                 case DrawMode.Rectangle:
                     shape = new Rectangle();
                     break;
-                case DrawMode.Text:
-                    break;
             }
-            shape?.Update(start, end, strokeColor, strokeSize);
+            shape?.Update(start, end, strokeColor, fillColor, strokeSize);
             return shape;
         }
 
@@ -55,11 +68,15 @@ namespace Com.Gitusme.Whiteboard
         {
             // 绘制背景
             canvas.StrokeSize = 0;
-            canvas.FillColor = Colors.White;
+            canvas.FillColor = CanvasColor;
             canvas.FillRectangle(dirtyRect);
             // 绘制历史Stroke
             foreach (Stroke stroke in _strokes.Reverse())
             {
+                if (stroke is Eraser)
+                {
+                    stroke.Shape.Stroke = CanvasColor == Colors.Black ? Colors.Black : Colors.White;
+                }
                 stroke.Draw(canvas);
             }
             // 绘制正在操作的Stroke
@@ -71,7 +88,10 @@ namespace Com.Gitusme.Whiteboard
 
         public void AddStroke(Stroke shape)
         {
-            _strokes.Push(shape);
+            if (!_strokes.Contains(shape))
+            {
+                _strokes.Push(shape);
+            }
         }
 
         public Stroke RemoveStroke()
@@ -97,9 +117,9 @@ namespace Com.Gitusme.Whiteboard
             }
         }
 
-        public void Save(Task<IScreenshotResult> screenshot)
+        public void Save(string fileName, Task<IScreenshotResult> screenshot)
         {
-            GraphicsWriter writer = new GraphicsWriter();
+            GraphicsWriter writer = new GraphicsWriter(fileName);
             writer.WriteToPictrue(screenshot);
             writer.WriteToXml(_strokes.ToArray());
         }
@@ -113,14 +133,16 @@ namespace Com.Gitusme.Whiteboard
         public enum DrawMode
         {
             None,
+            Arrow,
             Select,
             Pen,
             Eraser,
+            Text,
+            Fill,
             Line,
             Rectangle,
             Ellipse,
-            Arrow,
-            Text
+            Star
         }
 
     }

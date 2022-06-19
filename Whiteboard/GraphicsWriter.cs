@@ -12,8 +12,9 @@ namespace Com.Gitusme.Whiteboard
     public class GraphicsWriter
     {
         private string _dir;
+        private string _fileName;
 
-        public GraphicsWriter()
+        public GraphicsWriter(string fileName)
         {
             PlatformService platformService = new PlatformService();
             _dir = platformService.GetStoragePath();
@@ -21,29 +22,34 @@ namespace Com.Gitusme.Whiteboard
             {
                 Directory.CreateDirectory(_dir);
             }
+            _fileName = fileName;
         }
 
         public async void WriteToPictrue(Task<IScreenshotResult> screenshot)
         {
-            IScreenshotResult result = await screenshot;
-            using (Stream stream = await result.OpenReadAsync())
+            await Task.Run(() =>
             {
-                string datetime = DateTime.Now.ToString("yyyyMMddhhmmss");
-                using (FileStream fileStream = new FileStream(Path.Combine(_dir, $"Whiteboard-{datetime}.png"), FileMode.OpenOrCreate))
+                IScreenshotResult result = screenshot.GetAwaiter().GetResult();
+                using (Stream stream = result.OpenReadAsync().GetAwaiter().GetResult())
                 {
-                    stream.CopyTo(fileStream);
+                    using (FileStream fileStream = new FileStream(Path.Combine(_dir, $"{_fileName}.png"), FileMode.OpenOrCreate))
+                    {
+                        stream.CopyTo(fileStream);
+                    }
                 }
-            }
+            });
         }
 
-        public void WriteToXml(Stroke[] strokes)
+        public async void WriteToXml(Stroke[] strokes)
         {
-            string datetime = DateTime.Now.ToString("yyyyMMddhhmmss");
-            using (TextWriter writer = new StreamWriter(Path.Combine(_dir, $"Whiteboard-{datetime}.xml"), false, Encoding.UTF8))
+            await Task.Run(() =>
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(StrokeXml));
-                serializer.Serialize(writer, new StrokeXml { Strokes = strokes });
-            }
+                using (TextWriter writer = new StreamWriter(Path.Combine(_dir, $"{_fileName}.xml"), false, Encoding.UTF8))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(StrokeXml));
+                    serializer.Serialize(writer, new StrokeXml { Strokes = strokes });
+                }
+            });
         }
 
         [XmlRoot("Root")]

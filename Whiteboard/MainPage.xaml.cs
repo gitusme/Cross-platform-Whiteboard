@@ -5,13 +5,28 @@ namespace Com.Gitusme.Whiteboard;
 
 public partial class MainPage : ContentPage
 {
+    private readonly Color _buttonSelectedColor = Color.Parse("#E6DFAF");
+
+    private readonly Color _whiteColor = Colors.White;
+    private readonly Color _blackColor = Colors.Black;
+    private readonly Color _redColor = Color.Parse("#E63564");
+    private readonly Color _blueColor = Color.Parse("#2CB0FF");
+    private readonly Color _yellowColor = Color.Parse("#F4A124");
+    private readonly Color _greenColor = Color.Parse("#5EB670");
+
     private Dictionary<ImageButton, GraphicsDrawable.DrawMode> _strokeModes = new Dictionary<ImageButton, GraphicsDrawable.DrawMode>();
     private Dictionary<ImageButton, Color> _strokeColors = new Dictionary<ImageButton, Color>();
     private Dictionary<ImageButton, float> _strokeSizes = new Dictionary<ImageButton, float>();
+    private Dictionary<ImageButton, Color> _fillColors = new Dictionary<ImageButton, Color>();
+    private Dictionary<ImageButton, Color> _backColors = new Dictionary<ImageButton, Color>();
 
     private GraphicsDrawable.DrawMode _strokeMode;
     private Color _strokeColor;
     private float _strokeSize;
+    private Color _fillColor;
+    private Color _backColor;
+
+    private string _fileName;
 
     public MainPage()
 	{
@@ -39,32 +54,53 @@ public partial class MainPage : ContentPage
         _strokeModes.Add(ellipse, GraphicsDrawable.DrawMode.Ellipse);
         _strokeModes.Add(rectangle, GraphicsDrawable.DrawMode.Rectangle);
         // 初始画笔颜色
-        _strokeColors.Add(strokeColorBlack, Color.Parse("#010101"));
-        _strokeColors.Add(strokeColorRed, Color.Parse("#E63564"));
-        _strokeColors.Add(strokeColorBlue, Color.Parse("#2CB0FF"));
-        _strokeColors.Add(strokeColorYellow, Color.Parse("#F4A124"));
-        _strokeColors.Add(strokeColorGreen, Color.Parse("#5EB670"));
+        _strokeColors.Add(strokeColorTransparent, Colors.Transparent);
+        _strokeColors.Add(strokeColorWhite, _whiteColor);
+        _strokeColors.Add(strokeColorBlack, _blackColor);
+        _strokeColors.Add(strokeColorRed, _redColor);
+        _strokeColors.Add(strokeColorBlue, _blueColor);
+        _strokeColors.Add(strokeColorYellow, _yellowColor);
+        _strokeColors.Add(strokeColorGreen, _greenColor);
         // 初始画笔粗细
         _strokeSizes.Add(strokeSizeSmall, 1.0F);
         _strokeSizes.Add(strokeSize, 2.0F);
         _strokeSizes.Add(strokeSizeLarge, 6.0F);
+        // 初始填充颜色
+        _fillColors.Add(fillColorTransparent, Colors.Transparent);
+        _fillColors.Add(fillColorWhite, _whiteColor);
+        _fillColors.Add(fillColorBlack, _blackColor);
+        _fillColors.Add(fillColorRed, _redColor);
+        _fillColors.Add(fillColorBlue, _blueColor);
+        _fillColors.Add(fillColorYellow, _yellowColor);
+        _fillColors.Add(fillColorGreen, _greenColor);
+        // 初始化背景色
+        _backColors.Add(backColorWhite, _whiteColor);
+        _backColors.Add(backColorBlack, _blackColor);
 
         // 设置默认状态
         ImageButton defautMode = pen;
         ImageButton defautColor = strokeColorBlack;
         ImageButton defautSize = strokeSize;
+        ImageButton defaultFillColor = fillColorTransparent;
+        ImageButton defaultBackColor = backColorWhite;
 
         SetButtonStatus(new List<ImageButton>(_strokeModes.Keys), defautMode);
         SetButtonStatus(new List<ImageButton>(_strokeColors.Keys), defautColor);
         SetButtonStatus(new List<ImageButton>(_strokeSizes.Keys), defautSize);
+        SetButtonStatus(new List<ImageButton>(_fillColors.Keys), defaultFillColor);
+        SetButtonStatus(new List<ImageButton>(_backColors.Keys), defaultBackColor);
 
         _strokeMode = _strokeModes[defautMode];
         _strokeColor = _strokeColors[defautColor];
         _strokeSize = _strokeSizes[defautSize];
+        _fillColor = _fillColors[defaultFillColor];
+        _backColor = _backColors[defaultBackColor];
 
         SetDrawMode(_strokeMode);
         SetStrokeColor(_strokeColor);
         SetStrokeSize(_strokeSize);
+        SetFillColor(_fillColor);
+        SetBackColor(_backColor);
     }
 
     private void MainPage_Loaded(object sender, EventArgs e)
@@ -103,8 +139,21 @@ public partial class MainPage : ContentPage
 
         PointF start = points.FirstOrDefault();
 
-        GraphicsDrawable.ProgressStroke =
-            GraphicsDrawable.CreateShape(start, start, _strokeColor, _strokeSize);
+        Stroke stroke = GraphicsDrawable.CreateShape(start, start, _strokeColor, _fillColor, _strokeSize);
+
+        if (GraphicsDrawable.Mode != GraphicsDrawable.DrawMode.Fill)
+        {
+            GraphicsDrawable.ProgressStroke = stroke;
+        }
+        else
+        {
+            stroke?.Update(
+                new PointF((float)stroke.TranslationX, (float)stroke.TranslationY),
+                new PointF((float)(stroke.TranslationX + stroke.WidthRequest), (float)(stroke.TranslationY + stroke.HeightRequest)),
+                stroke.StrokeColor, _fillColor, stroke.StrokeThickness);
+
+            GraphicsDrawable.ProgressStroke = null;
+        }
 
         GraphicsView.Invalidate();
     }
@@ -119,8 +168,8 @@ public partial class MainPage : ContentPage
 
             Stroke stroke = GraphicsDrawable.ProgressStroke;
             stroke.Update(
-                new PointF((float)stroke.Shape.TranslationX, (float)stroke.Shape.TranslationY), end,
-                (stroke.Shape.Stroke as SolidColorBrush).Color, (float)stroke.Shape.StrokeThickness);
+                new PointF((float)stroke.TranslationX, (float)stroke.TranslationY), end,
+                stroke.StrokeColor, stroke.FillColor, stroke.StrokeThickness);
         }
 
         GraphicsView.Invalidate();
@@ -137,7 +186,7 @@ public partial class MainPage : ContentPage
             Stroke stroke = GraphicsDrawable.ProgressStroke;
             stroke.Update(
                 new PointF((float)stroke.Shape.TranslationX, (float)stroke.Shape.TranslationY), end,
-                _strokeColor, _strokeSize);
+                stroke.StrokeColor, stroke.FillColor, stroke.StrokeThickness);
 
             GraphicsDrawable.AddStroke(stroke);
             GraphicsDrawable.ProgressStroke = null;
@@ -168,27 +217,69 @@ public partial class MainPage : ContentPage
     }
 
 
-    private void save_Clicked(object sender, EventArgs e)
+    private async void save_Clicked(object sender, EventArgs e)
     {
-        GraphicsDrawable.Save(GraphicsView.CaptureAsync());
+        ImageButton button = sender as ImageButton;
+        SetButtonStatus(button, _buttonSelectedColor);
+
+        string fileName = String.IsNullOrEmpty(_fileName) ? await DisplayPromptAsync("保存", "请输入文件名:") : _fileName;
+        if (!String.IsNullOrEmpty(fileName))
+        {
+            GraphicsDrawable.Save(fileName, GraphicsView.CaptureAsync());
+        }
+        _fileName = fileName;
+    }
+
+    private void save_Released(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        SetButtonStatus(button, Colors.Transparent);
     }
 
     private void clear_Clicked(object sender, EventArgs e)
     {
+        ImageButton button = sender as ImageButton;
+        SetButtonStatus(button, _buttonSelectedColor);
+
         GraphicsDrawable.Clear();
         GraphicsView.Invalidate();
+        _fileName = null;
+    }
+
+    private void clear_Released(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        SetButtonStatus(button, Colors.Transparent);
     }
 
     private void undo_Clicked(object sender, EventArgs e)
     {
+        ImageButton button = sender as ImageButton;
+        SetButtonStatus(button, _buttonSelectedColor);
+
         GraphicsDrawable.Undo();
         GraphicsView.Invalidate();
     }
 
+    private void undo_Released(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        SetButtonStatus(button, Colors.Transparent);
+    }
+
     private void redo_Clicked(object sender, EventArgs e)
     {
+        ImageButton button = sender as ImageButton;
+        SetButtonStatus(button, _buttonSelectedColor);
+
         GraphicsDrawable.Redo();
         GraphicsView.Invalidate();
+    }
+
+    private void redo_Released(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        SetButtonStatus(button, Colors.Transparent);
     }
 
     private void strokeMode_Clicked(object sender, EventArgs e)
@@ -221,13 +312,48 @@ public partial class MainPage : ContentPage
         }
     }
 
+    private void fillColor_Clicked(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        if (button != null)
+        {
+            SetButtonStatus(new List<ImageButton>(_fillColors.Keys), button);
+            SetFillColor(_fillColors[button]);
+        }
+    }
+
+    private void backColor_Clicked(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        if (button != null)
+        {
+            SetButtonStatus(new List<ImageButton>(_backColors.Keys), button);
+            SetBackColor(_backColors[button]);
+        }
+
+        if (_backColor != GraphicsDrawable.CanvasColor)
+        {
+            GraphicsDrawable.CanvasColor = _backColor;
+            GraphicsView.Invalidate();
+        }
+    }
+
     private void SetButtonStatus(List<ImageButton> buttonGroup, ImageButton clickButton)
     {
         foreach (ImageButton btn in buttonGroup)
         {
-            btn.BackgroundColor = Object.ReferenceEquals(btn, clickButton) ? Color.Parse("#eeeeee") : Colors.Transparent;
+            SetButtonStatus(btn, Object.ReferenceEquals(btn, clickButton) ? _buttonSelectedColor : Colors.Transparent);
         }
     }
+
+    private void SetButtonStatus(ImageButton button, Color color)
+    {
+        if (button != null)
+        {
+            button.BackgroundColor = color;
+        }
+    }
+
     private void SetDrawMode(GraphicsDrawable.DrawMode drawMode)
     {
         GraphicsDrawable.Mode = drawMode;
@@ -238,9 +364,19 @@ public partial class MainPage : ContentPage
         _strokeColor = strokeColor;
     }
 
+    private void SetFillColor(Color fillColor)
+    {
+        _fillColor = fillColor;
+    }
+
     private void SetStrokeSize(float strokeSize)
     {
         _strokeSize = strokeSize;
+    }
+
+    private void SetBackColor(Color backColor)
+    {
+        _backColor = backColor;
     }
 
     private void more_Clicked(object sender, EventArgs e)
@@ -250,12 +386,7 @@ public partial class MainPage : ContentPage
         more.Source = ImageSource.FromFile(menuBar.IsVisible ? "opt_more.png" : "opt_more_vertical.png");
     }
 
-    private void more_Released(object sender, EventArgs e)
-    {
-        menuBar.IsVisible = false;
-    }
-
-    private async void contact_Clicked(object sender, EventArgs e)
+    private async void contact_item_Clicked(object sender, EventArgs e)
     {
         more_Clicked(sender, e);
         await SendEmail();
@@ -281,7 +412,7 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private async void about_Clicked(object sender, EventArgs e)
+    private async void about_item_Clicked(object sender, EventArgs e)
     {
         more_Clicked(sender, e);
         await Shell.Current.GoToAsync("//AboutPage");

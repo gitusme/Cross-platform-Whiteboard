@@ -19,7 +19,46 @@ namespace Com.Gitusme.Whiteboard.Strokes
         public Shape Shape { get; set; }
 
         [XmlAttribute(AttributeName = "StrokeColor")]
-        public String StrokeColor { get => (Shape.Stroke as SolidColorBrush).Color.ToHex(); set => Shape.Stroke = new SolidColorBrush(Color.Parse(value)); }
+        public String StrokeColorString
+        {
+            get
+            {
+                Color color = (Shape.Stroke as SolidColorBrush).Color;
+                return color != Colors.Transparent ? color.ToHex() : String.Empty;
+            }
+            set
+            {
+                Color color = !String.IsNullOrEmpty(value) ? Color.Parse(value) : Colors.Transparent;
+                Shape.Stroke = new SolidColorBrush(color);
+            }
+        }
+
+        [XmlIgnore]
+        public Color StrokeColor
+        {
+            get => !String.IsNullOrEmpty(StrokeColorString) ? Color.Parse(StrokeColorString) : Colors.Transparent;
+        }
+
+        [XmlAttribute(AttributeName = "FillColor")]
+        public String FillColorString
+        {
+            get
+            {
+                Color color = (Shape.Fill as SolidColorBrush).Color;
+                return color != Colors.Transparent ? color.ToHex() : String.Empty;
+            }
+            set
+            {
+                Color color = !String.IsNullOrEmpty(value) ? Color.Parse(value) : Colors.Transparent;
+                Shape.Fill = new SolidColorBrush(color);
+            }
+        }
+
+        [XmlIgnore]
+        public Color FillColor
+        {
+            get => !String.IsNullOrEmpty(FillColorString) ? Color.Parse(FillColorString) : Colors.Transparent;
+        }
 
         [XmlAttribute(AttributeName = "StrokeThickness")]
         public double StrokeThickness { get => Shape.StrokeThickness; set => Shape.StrokeThickness = value; }
@@ -42,8 +81,7 @@ namespace Com.Gitusme.Whiteboard.Strokes
         [XmlAttribute(AttributeName = "HeightRequest")]
         public double HeightRequest { get => Shape.HeightRequest; set => Shape.HeightRequest = value; }
 
-
-        public virtual void Update(PointF start, PointF end, Color strokeColor, float strokeSize)
+        public virtual void Update(PointF start, PointF end, Color strokeColor, Color fillColor, double strokeSize)
         {
             if (Shape != null)
             {
@@ -51,6 +89,7 @@ namespace Com.Gitusme.Whiteboard.Strokes
                 Shape.StrokeThickness = strokeSize;
                 Shape.StrokeDashArray = new double[0];
                 Shape.StrokeDashOffset = 0;
+                Shape.Fill = new SolidColorBrush(fillColor);
                 Shape.TranslationX = start.X;
                 Shape.TranslationY = start.Y;
                 Shape.WidthRequest = end.X - start.X;
@@ -73,11 +112,17 @@ namespace Com.Gitusme.Whiteboard.Strokes
                 canvas.StrokeSize = (float)Shape.StrokeThickness;
                 canvas.StrokeDashPattern = Shape.StrokeDashPattern;
                 canvas.StrokeDashOffset = (float)Shape.StrokeDashOffset;
+                canvas.FillColor = (Shape.Fill as SolidColorBrush).Color;
                 canvas.SetShadow(
                     new SizeF((float)Shape.Shadow.Offset.X, (float)Shape.Shadow.Offset.Y),
                     Shape.Shadow.Radius,
                     (Shape.Shadow.Brush as SolidColorBrush).Color);
             }
+        }
+
+        public virtual bool Contains(PointF point)
+        {
+            return false;
         }
 
         public override bool Equals(object obj)

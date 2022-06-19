@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Com.Gitusme.Whiteboard.AboutPage" BackgroundColor="Transparent">
-    <Grid BackgroundColor="Transparent">
-        <Grid BackgroundColor="#000000" Opacity="0.05"></Grid>
-        <ImageButton x:Name="about" Source="about.png" Margin="30" Clicked="about_Clicked" />
+    <Grid>
+        <Image BackgroundColor="#34A2DA" Opacity="0.05"></Image>
+        <ImageButton x:Name="about" Source="about.png" Margin="30" Clicked="about_Clicked" Scale="1.2" Aspect="Center" />
     </Grid>
 </ContentPage>

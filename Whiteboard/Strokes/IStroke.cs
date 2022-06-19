@@ -9,7 +9,8 @@ namespace Com.Gitusme.Whiteboard.Strokes
 {
     public interface IStroke
     {
-        public abstract void Update(PointF start, PointF end, Color strokeColor, float strokeSize);
+        public abstract void Update(PointF start, PointF end, Color strokeColor, Color fillColor, double strokeSize);
         public abstract void Draw(ICanvas canvas);
+        public abstract bool Contains(PointF point);
     }
 }
