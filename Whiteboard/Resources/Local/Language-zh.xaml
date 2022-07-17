@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <sys:String x:Key="General">
+        常用
+    </sys:String>
+    <sys:String x:Key="Tool">
+        工具
+    </sys:String>
+    <sys:String x:Key="Shape">
+        形状
+    </sys:String>
+    <sys:String x:Key="Size">
+        大小
+    </sys:String>
+    <sys:String x:Key="Stroke">
+        线条
+    </sys:String>
+    <sys:String x:Key="Fill">
+        填充
+    </sys:String>
+    <sys:String x:Key="Background">
+        背景
+    </sys:String>
+    <sys:String x:Key="Color">
+        调色板
+    </sys:String>
+    <sys:String x:Key="Red">
+        红
+    </sys:String>
+    <sys:String x:Key="Green">
+        绿
+    </sys:String>
+    <sys:String x:Key="Blue">
+        蓝
+    </sys:String>
+    <sys:String x:Key="OK">
+        确定
+    </sys:String>
+    <sys:String x:Key="Cancel">
+        取消
+    </sys:String>
+    <sys:String x:Key="Save">
+        保存
+    </sys:String>
+    <sys:String x:Key="RequestInputFileName">
+        请输入文件名:
+    </sys:String>
+    <sys:String x:Key="ContactAuthor">
+        联系作者
+    </sys:String>
+    <sys:String x:Key="About">
+        关于
+    </sys:String>
+</ResourceDictionary>

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Com.Gitusme.Whiteboard
+namespace Com.Gitusme.Whiteboard.UI
 {
     public class GraphicsWriter
     {

@@ -1,5 +1,6 @@
 ﻿using Com.Gitusme.Whiteboard.Platforms;
 using Com.Gitusme.Whiteboard.Strokes;
+using Com.Gitusme.Whiteboard.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
