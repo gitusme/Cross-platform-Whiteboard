@@ -1,4 +1,6 @@
-﻿namespace Com.Gitusme.Whiteboard;
+﻿using System.Globalization;
+
+namespace Com.Gitusme.Whiteboard;
 
 public partial class App : Application
 {
@@ -6,6 +8,6 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-		MainPage = new AppShell();
+        MainPage = new AppShell();
 	}
 }

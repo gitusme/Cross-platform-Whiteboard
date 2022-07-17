@@ -13,13 +13,8 @@
 
         </GraphicsView>
 
-        <Grid VerticalOptions="Center" HorizontalOptions="Start" BackgroundColor="#ffffff">
+        <Grid VerticalOptions="StartAndExpand" HorizontalOptions="Start">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -27,182 +22,213 @@
                 <ColumnDefinition Width="68"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="0" Grid.Column="0" Margin="2,1,0,0"
+            <ImageButton
+                x:Name="toolbarHeader"
+                Grid.Row="0" Grid.Column="0"
+                Source="opt_more.png" HeightRequest="16" WidthRequest="68" Pressed="toolbarHeader_Clicked" />
+
+            <Grid x:Name="toolbar" Grid.Row="1" Grid.Column="0" BackgroundColor="#ffffff">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="68"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 常用 -->
+                <Border Grid.Row="0" Grid.Column="0" Margin="2,1,0,0"
                     Stroke="#DEDEDE" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5" >
-                <VerticalStackLayout VerticalOptions="Center">
-                    <Label Text="常用" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
-                    <Grid BackgroundColor="#f8f8f8">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32"/>
-                            <ColumnDefinition Width="32"/>
-                        </Grid.ColumnDefinitions>
-                        <ImageButton Margin="1" x:Name="save" Source="tool_save.png" HeightRequest="28" WidthRequest="28" Pressed="save_Clicked" Released="save_Released"
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label Text="{StaticResource General}" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
+                        <Grid BackgroundColor="#f8f8f8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="32"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton Margin="1" x:Name="save" Source="tool_save.png" HeightRequest="28" WidthRequest="28" Pressed="save_Clicked" Released="save_Released"
                                      Grid.Row="0" Grid.Column="0" />
-                        <ImageButton Margin="1" x:Name="clear" Source="tool_clear.png" HeightRequest="28" WidthRequest="28" Pressed="clear_Clicked" Released="clear_Released"
+                            <ImageButton Margin="1" x:Name="clear" Source="tool_clear.png" HeightRequest="28" WidthRequest="28" Pressed="clear_Clicked" Released="clear_Released"
                                      Grid.Row="1" Grid.Column="0" />
-                        <ImageButton Margin="1" x:Name="undo" Source="tool_undo.png" HeightRequest="28" WidthRequest="28" Pressed="undo_Clicked" Released="undo_Released"
+                            <ImageButton Margin="1" x:Name="undo" Source="tool_undo.png" HeightRequest="28" WidthRequest="28" Pressed="undo_Clicked" Released="undo_Released"
                                      Grid.Row="0" Grid.Column="1" />
-                        <ImageButton Margin="1" x:Name="redo" Source="tool_redo.png" HeightRequest="28" WidthRequest="28" Pressed="redo_Clicked" Released="redo_Released"
+                            <ImageButton Margin="1" x:Name="redo" Source="tool_redo.png" HeightRequest="28" WidthRequest="28" Pressed="redo_Clicked" Released="redo_Released"
                                      Grid.Row="1" Grid.Column="1" />
-                    </Grid>
-                </VerticalStackLayout>
-            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
 
-            <Border Grid.Row="1" Grid.Column="0" Margin="2,1,0,0"
+                <!-- 工具 -->
+                <Border Grid.Row="1" Grid.Column="0" Margin="2,1,0,0"
                     Stroke="#DEDEDE" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5" >
-                <VerticalStackLayout VerticalOptions="Center">
-                    <Label Text="工具" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
-                    <Grid BackgroundColor="#f8f8f8">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32"/>
-                            <ColumnDefinition Width="32"/>
-                        </Grid.ColumnDefinitions>
-                        <ImageButton Margin="1" x:Name="pen" Source="tool_pen.png" HeightRequest="28" WidthRequest="28" Pressed="strokeMode_Clicked"
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label Text="{StaticResource Tool}" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
+                        <Grid BackgroundColor="#f8f8f8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="32"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton Margin="1" x:Name="pen" Source="tool_pen.png" HeightRequest="28" WidthRequest="28" Pressed="strokeMode_Clicked"
                                      Grid.Row="0" Grid.Column="0" />
-                        <ImageButton Margin="1" x:Name="eraser" Source="tool_eraser.png" HeightRequest="28" WidthRequest="28" Pressed="strokeMode_Clicked"
+                            <ImageButton Margin="1" x:Name="eraser" Source="tool_eraser.png" HeightRequest="28" WidthRequest="28" Pressed="strokeMode_Clicked"
                                      Grid.Row="0" Grid.Column="1" />
-                    </Grid>
-                </VerticalStackLayout>
-            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
 
-            <Border Grid.Row="2" Grid.Column="0" Margin="2,1,0,0"
+                <!-- 形状 -->
+                <Border Grid.Row="2" Grid.Column="0" Margin="2,1,0,0"
                     Stroke="#DEDEDE" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5" >
-                <VerticalStackLayout VerticalOptions="Center">
-                    <Label Text="形状" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
-                    <Grid BackgroundColor="#f8f8f8">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32"/>
-                            <ColumnDefinition Width="32"/>
-                        </Grid.ColumnDefinitions>
-                        <ImageButton Margin="1" x:Name="line" Source="tool_line.png" HeightRequest="28" WidthRequest="28" Pressed="strokeMode_Clicked"
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label Text="{StaticResource Shape}" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
+                        <Grid BackgroundColor="#f8f8f8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="32"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton Margin="1" x:Name="line" Source="tool_line.png" HeightRequest="28" WidthRequest="28" Pressed="strokeMode_Clicked"
                                      Grid.Row="0" Grid.Column="0" />
-                        <ImageButton Margin="1" x:Name="ellipse" Source="tool_circle.png" HeightRequest="28" WidthRequest="28" Pressed="strokeMode_Clicked"
+                            <ImageButton Margin="1" x:Name="ellipse" Source="tool_circle.png" HeightRequest="28" WidthRequest="28" Pressed="strokeMode_Clicked"
                                      Grid.Row="0" Grid.Column="1" />
-                        <ImageButton Margin="1" x:Name="rectangle" Source="tool_rectangle.png" HeightRequest="28" WidthRequest="28" Pressed="strokeMode_Clicked"
+                            <ImageButton Margin="1" x:Name="rectangle" Source="tool_rectangle.png" HeightRequest="28" WidthRequest="28" Pressed="strokeMode_Clicked"
                                      Grid.Row="1" Grid.Column="0" />
-                    </Grid>
-                </VerticalStackLayout>
-            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
 
-            <Border Grid.Row="3" Grid.Column="0" Margin="2,1,0,0"
+                <!-- 大小 -->
+                <Border Grid.Row="3" Grid.Column="0" Margin="2,1,0,0"
                     Stroke="#DEDEDE" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5" >
-                <VerticalStackLayout VerticalOptions="Center">
-                    <Label Text="大小" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
-                    <Grid BackgroundColor="#f8f8f8">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32"/>
-                            <ColumnDefinition Width="32"/>
-                        </Grid.ColumnDefinitions>
-                        <ImageButton Margin="1" x:Name="strokeSizeSmall" Source="tool_size_one.png" HeightRequest="28" WidthRequest="28" Pressed="strokeSize_Clicked"
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label Text="{StaticResource Size}" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
+                        <Grid BackgroundColor="#f8f8f8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="32"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton Margin="1" x:Name="strokeSizeSmall" Source="tool_size_one.png" HeightRequest="28" WidthRequest="28" Pressed="strokeSize_Clicked"
                                      Grid.Row="0" Grid.Column="0" />
-                        <ImageButton Margin="1" x:Name="strokeSize" Source="tool_size_two.png" HeightRequest="28" WidthRequest="28" Pressed="strokeSize_Clicked"
+                            <ImageButton Margin="1" x:Name="strokeSize" Source="tool_size_two.png" HeightRequest="28" WidthRequest="28" Pressed="strokeSize_Clicked"
                                      Grid.Row="0" Grid.Column="1" />
-                        <ImageButton Margin="1" x:Name="strokeSizeLarge" Source="tool_size_six.png" HeightRequest="28" WidthRequest="28" Pressed="strokeSize_Clicked"
+                            <ImageButton Margin="1" x:Name="strokeSizeLarge" Source="tool_size_six.png" HeightRequest="28" WidthRequest="28" Pressed="strokeSize_Clicked"
                                      Grid.Row="1" Grid.Column="0" />
-                    </Grid>
-                </VerticalStackLayout>
-            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
 
-            <Border Grid.Row="4" Grid.Column="0" Margin="2,1,0,0"
+                <!-- 线条 -->
+                <Border Grid.Row="4" Grid.Column="0" Margin="2,1,0,0"
                     Stroke="#DEDEDE" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5" >
-                <VerticalStackLayout VerticalOptions="Center">
-                    <Label Text="线条" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
-                    <Grid BackgroundColor="#f8f8f8">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32"/>
-                            <ColumnDefinition Width="32"/>
-                        </Grid.ColumnDefinitions>
-                        <ImageButton Margin="1" x:Name="strokeColorTransparent" Source="tool_color_transparent.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label Text="{StaticResource Stroke}" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
+                        <Grid BackgroundColor="#f8f8f8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="32"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton Margin="1" x:Name="strokeColorTransparent" Source="tool_color_transparent.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
                                      Grid.Row="0" Grid.Column="0" />
-                        <ImageButton Margin="1" x:Name="strokeColorWhite" Source="tool_color_white.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
+                            <ImageButton Margin="1" x:Name="strokeColorWhite" Source="tool_color_white.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
                                      Grid.Row="0" Grid.Column="1" />
-                        <ImageButton Margin="1" x:Name="strokeColorBlack" Source="tool_color_black.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
+                            <ImageButton Margin="1" x:Name="strokeColorBlack" Source="tool_color_black.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
                                      Grid.Row="1" Grid.Column="0" />
-                        <ImageButton Margin="1" x:Name="strokeColorRed" Source="tool_color_red.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
+                            <ImageButton Margin="1" x:Name="strokeColorRed" Source="tool_color_red.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
                                      Grid.Row="1" Grid.Column="1" />
-                        <ImageButton Margin="1" x:Name="strokeColorBlue" Source="tool_color_blue.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
+                            <ImageButton Margin="1" x:Name="strokeColorBlue" Source="tool_color_blue.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
                                      Grid.Row="2" Grid.Column="0" />
-                        <ImageButton Margin="1" x:Name="strokeColorYellow" Source="tool_color_yellow.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
+                            <ImageButton Margin="1" x:Name="strokeColorYellow" Source="tool_color_yellow.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
                                      Grid.Row="2" Grid.Column="1" />
-                        <ImageButton Margin="1" x:Name="strokeColorGreen" Source="tool_color_green.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
+                            <ImageButton Margin="1" x:Name="strokeColorGreen" Source="tool_color_green.png" HeightRequest="28" WidthRequest="28" Pressed="strokeColor_Clicked"
                                      Grid.Row="3" Grid.Column="0" />
-                    </Grid>
-                </VerticalStackLayout>
-            </Border>
+                            <ImageButton Margin="1" x:Name="strokeColorOther" Source="tool_color_other.png" HeightRequest="28" WidthRequest="28" Pressed="selectStrokeColor_Clicked"
+                                     Grid.Row="3" Grid.Column="1" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
 
-            <Border Grid.Row="5" Grid.Column="0" Margin="2,1,0,0"
+                <!-- 填充 -->
+                <Border Grid.Row="5" Grid.Column="0" Margin="2,1,0,0"
                     Stroke="#DEDEDE" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5" >
-                <VerticalStackLayout VerticalOptions="Center">
-                    <Label Text="填充" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
-                    <Grid BackgroundColor="#f8f8f8">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32"/>
-                            <ColumnDefinition Width="32"/>
-                        </Grid.ColumnDefinitions>
-                        <ImageButton Margin="1" x:Name="fillColorTransparent" Source="tool_color_transparent.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label Text="{StaticResource Fill}" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
+                        <Grid BackgroundColor="#f8f8f8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="32"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton Margin="1" x:Name="fillColorTransparent" Source="tool_color_transparent.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
                                      Grid.Row="0" Grid.Column="0" />
-                        <ImageButton Margin="1" x:Name="fillColorWhite" Source="tool_color_white.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
+                            <ImageButton Margin="1" x:Name="fillColorWhite" Source="tool_color_white.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
                                      Grid.Row="0" Grid.Column="1" />
-                        <ImageButton Margin="1" x:Name="fillColorBlack" Source="tool_color_black.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
+                            <ImageButton Margin="1" x:Name="fillColorBlack" Source="tool_color_black.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
                                      Grid.Row="1" Grid.Column="0" />
-                        <ImageButton Margin="1" x:Name="fillColorRed" Source="tool_color_red.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
+                            <ImageButton Margin="1" x:Name="fillColorRed" Source="tool_color_red.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
                                      Grid.Row="1" Grid.Column="1" />
-                        <ImageButton Margin="1" x:Name="fillColorBlue" Source="tool_color_blue.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
+                            <ImageButton Margin="1" x:Name="fillColorBlue" Source="tool_color_blue.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
                                      Grid.Row="2" Grid.Column="0" />
-                        <ImageButton Margin="1" x:Name="fillColorYellow" Source="tool_color_yellow.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
+                            <ImageButton Margin="1" x:Name="fillColorYellow" Source="tool_color_yellow.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
                                      Grid.Row="2" Grid.Column="1" />
-                        <ImageButton Margin="1" x:Name="fillColorGreen" Source="tool_color_green.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
+                            <ImageButton Margin="1" x:Name="fillColorGreen" Source="tool_color_green.png" HeightRequest="28" WidthRequest="28" Pressed="fillColor_Clicked"
                                      Grid.Row="3" Grid.Column="0" />
-                    </Grid>
-                </VerticalStackLayout>
-            </Border>
+                            <ImageButton Margin="1" x:Name="fillColorOther" Source="tool_color_other.png" HeightRequest="28" WidthRequest="28" Pressed="selectFillColor_Clicked"
+                                     Grid.Row="3" Grid.Column="1" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
 
-            <Border Grid.Row="6" Grid.Column="0" Margin="2,1,0,0"
+                <!-- 背景 -->
+                <Border Grid.Row="6" Grid.Column="0" Margin="2,1,0,0"
                     Stroke="#DEDEDE" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5" >
-                <VerticalStackLayout VerticalOptions="Center">
-                    <Label Text="背景" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
-                    <Grid BackgroundColor="#f8f8f8">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32"/>
-                            <ColumnDefinition Width="32"/>
-                        </Grid.ColumnDefinitions>
-                        <ImageButton Margin="1" x:Name="backColorWhite" Source="tool_color_white.png" HeightRequest="28" WidthRequest="28" Pressed="backColor_Clicked"
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label Text="{StaticResource Background}" TextColor="#999" FontSize="8" BackgroundColor="#f4f4f4" HorizontalTextAlignment="Center"/>
+                        <Grid BackgroundColor="#f8f8f8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="32"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton Margin="1" x:Name="backColorWhite" Source="tool_color_white.png" HeightRequest="28" WidthRequest="28" Pressed="backColor_Clicked"
                                      Grid.Row="0" Grid.Column="0" />
-                        <ImageButton Margin="1" x:Name="backColorBlack" Source="tool_color_black.png" HeightRequest="28" WidthRequest="28" Pressed="backColor_Clicked"
+                            <ImageButton Margin="1" x:Name="backColorBlack" Source="tool_color_black.png" HeightRequest="28" WidthRequest="28" Pressed="backColor_Clicked"
                                      Grid.Row="0" Grid.Column="1" />
-                    </Grid>
-                </VerticalStackLayout>
-            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
         </Grid>
 
         <Grid HorizontalOptions="End">
@@ -212,27 +238,55 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="32"/>
+                <ColumnDefinition Width="24"/>
             </Grid.ColumnDefinitions>
             <StackLayout Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Orientation="Vertical"
-                   x:Name="menuBar" Margin="0,2,2,0" IsVisible="false">
+                   x:Name="menuBar" Margin="0,0,0,0" IsVisible="false">
                 <Border x:Name="contactBorder"
                     Stroke="#f4f4f4" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5">
-                    <Button x:Name="contact" Text="联系作者" TextColor="#999" BackgroundColor="Transparent" FontSize="12"
+                    <Button x:Name="contact" Text="{StaticResource ContactAuthor}" TextColor="#999" BackgroundColor="#ffffff" FontSize="12"
                             Pressed="contact_item_Clicked"/>
                 </Border>
                 <Border x:Name="aboutBorder"
                     Stroke="#f4f4f4" StrokeShape="RoundRectangle 2,2,2,2" StrokeThickness="0.5">
-                    <Button x:Name="about" Text="关于" TextColor="#999" BackgroundColor="Transparent" FontSize="12"
+                    <Button x:Name="about" Text="{StaticResource About}" TextColor="#999" BackgroundColor="#ffffff" FontSize="12"
                             Pressed="about_item_Clicked"/>
                 </Border>
             </StackLayout>
-            <ImageButton Grid.Row="0" Grid.Column="1"
+            <ImageButton Grid.Row="0" Grid.Column="1" VerticalOptions="Start"
                  x:Name="more" 
-                 Margin="1" Source="opt_more_vertical.png" HeightRequest="28" WidthRequest="28"
+                 Margin="0" Source="opt_more_vertical.png" HeightRequest="28" WidthRequest="24"
                     Pressed="more_Clicked"/>
         </Grid>
-        
+
+        <Grid x:Name="colorSelectDialog" VerticalOptions="Fill" HorizontalOptions="Fill" IsVisible="false">
+            <Grid VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="#34A2DA" Opacity="0.5"></Grid>
+            <Border VerticalOptions="Center" Stroke="#34A2DA" StrokeThickness="0" StrokeShape="RoundRectangle 5,5,5,5" Margin="20">
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" BackgroundColor="White" Margin="10">
+                    <Label Text="{StaticResource Color}" FontSize="16" FontAttributes="Bold" Margin="5"/>
+                    <Border StrokeThickness="1" Stroke="gray" StrokeShape="Rectangle" WidthRequest="120" HeightRequest="40">
+                        <Image x:Name="colorValue" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="#000000" WidthRequest="120" HeightRequest="40" Margin="5">
+                        </Image>
+                    </Border>
+                    <StackLayout HorizontalOptions="Fill">
+                        <Label Text="{StaticResource Red}" Margin="5"/>
+                        <Slider x:Name="redSlider" MinimumTrackColor="Red" Opacity="0.5" MaximumTrackColor="Gray" Maximum="255" Minimum="0" HeightRequest="20" ValueChanged="Slider_ValueChanged"/>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="Fill">
+                        <Label Text="{StaticResource Green}" Margin="5"/>
+                        <Slider x:Name="greenSlider" MinimumTrackColor="Green" Opacity="0.5" MaximumTrackColor="Gray" Maximum="255" Minimum="0" HeightRequest="20" ValueChanged="Slider_ValueChanged"/>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="Fill">
+                        <Label Text="{StaticResource Blue}" Margin="5"/>
+                        <Slider x:Name="blueSlider" MinimumTrackColor="Blue" Opacity="0.5" MaximumTrackColor="Gray" Maximum="255" Minimum="0" HeightRequest="20" ValueChanged="Slider_ValueChanged"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                        <Button x:Name="btnCancel" Text="{StaticResource Cancel}" Opacity="0.5" WidthRequest="80" Margin="10" Clicked="btnCancel_Clicked" />
+                        <Button x:Name="btnOK" Text="{StaticResource OK}" WidthRequest="80" Margin="10" Clicked="btnOK_Clicked" />
+                    </StackLayout>
+                </StackLayout>
+            </Border>
+        </Grid>
     </Grid>
 
     <ContentPage.Resources>

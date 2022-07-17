@@ -1,5 +1,6 @@
 ﻿
 using Com.Gitusme.Whiteboard.Strokes;
+using System.Globalization;
 
 namespace Com.Gitusme.Whiteboard;
 
@@ -61,6 +62,7 @@ public partial class MainPage : ContentPage
         _strokeColors.Add(strokeColorBlue, _blueColor);
         _strokeColors.Add(strokeColorYellow, _yellowColor);
         _strokeColors.Add(strokeColorGreen, _greenColor);
+        _strokeColors.Add(strokeColorOther, _strokeColor);
         // 初始画笔粗细
         _strokeSizes.Add(strokeSizeSmall, 1.0F);
         _strokeSizes.Add(strokeSize, 2.0F);
@@ -73,6 +75,7 @@ public partial class MainPage : ContentPage
         _fillColors.Add(fillColorBlue, _blueColor);
         _fillColors.Add(fillColorYellow, _yellowColor);
         _fillColors.Add(fillColorGreen, _greenColor);
+        _fillColors.Add(fillColorOther, _fillColor);
         // 初始化背景色
         _backColors.Add(backColorWhite, _whiteColor);
         _backColors.Add(backColorBlack, _blackColor);
@@ -216,13 +219,25 @@ public partial class MainPage : ContentPage
         return null;
     }
 
+    private void toolbarHeader_Clicked(object sender, EventArgs e)
+    {
+        toolbar.IsVisible = !toolbar.IsVisible;
+    }
 
     private async void save_Clicked(object sender, EventArgs e)
     {
         ImageButton button = sender as ImageButton;
         SetButtonStatus(button, _buttonSelectedColor);
 
-        string fileName = String.IsNullOrEmpty(_fileName) ? await DisplayPromptAsync("保存", "请输入文件名:") : _fileName;
+        bool isCN = String.Equals(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName, "zh");
+        string save = isCN ? "保存" : "Save";
+        string intputFileName = isCN ? "请输入文件名:" : "Please input fileName:";
+        string cancel = isCN ? "取消" : "Cancel";
+        string ok = isCN ? "确定" : "OK";
+
+        string fileName = String.IsNullOrEmpty(_fileName) ?
+            await DisplayPromptAsync(save, intputFileName, ok, cancel) :
+            _fileName;
         if (!String.IsNullOrEmpty(fileName))
         {
             GraphicsDrawable.Save(fileName, GraphicsView.CaptureAsync());
@@ -308,7 +323,10 @@ public partial class MainPage : ContentPage
         if (button != null)
         {
             SetButtonStatus(new List<ImageButton>(_strokeColors.Keys), button);
-            SetStrokeColor(_strokeColors[button]);
+            if (button != strokeColorOther)
+            {
+                SetStrokeColor(_strokeColors[button]);
+            }
         }
     }
 
@@ -318,7 +336,10 @@ public partial class MainPage : ContentPage
         if (button != null)
         {
             SetButtonStatus(new List<ImageButton>(_fillColors.Keys), button);
-            SetFillColor(_fillColors[button]);
+            if (button != fillColorOther)
+            {
+                SetFillColor(_fillColors[button]);
+            }
         }
     }
 
@@ -397,7 +418,7 @@ public partial class MainPage : ContentPage
         if (Email.Default.IsComposeSupported)
         {
             string subject = "Hello friends!";
-            string body = "It was great to see you last weekend.";
+            string body = "";
             string[] recipients = new[] { "j526180212@outlook.com" };
 
             var message = new EmailMessage
@@ -416,6 +437,58 @@ public partial class MainPage : ContentPage
     {
         more_Clicked(sender, e);
         await Shell.Current.GoToAsync("//AboutPage");
+    }
+
+    private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        colorValue.BackgroundColor = Color.FromRgb((int)redSlider.Value, (int)greenSlider.Value, (int)blueSlider.Value);
+    }
+
+    private object sender;
+
+    private void btnOK_Clicked(object sender, EventArgs e)
+    {
+        colorSelectDialog.IsVisible = false;
+        if(this.sender == strokeColorOther)
+        {
+            _strokeColor = colorValue.BackgroundColor;
+        }
+        if (this.sender == fillColorOther)
+        {
+            _fillColor = colorValue.BackgroundColor;
+        }
+    }
+
+    private void btnCancel_Clicked(object sender, EventArgs e)
+    {
+        colorSelectDialog.IsVisible = false;
+    }
+
+    private void selectStrokeColor_Clicked(object sender, EventArgs e)
+    {
+        strokeColor_Clicked(sender, e);
+
+        colorSelectDialog.IsVisible = true;
+        InitColorDialog(sender, _strokeColor);
+    }
+
+    private void selectFillColor_Clicked(object sender, EventArgs e)
+    {
+        fillColor_Clicked(sender, e);
+
+        colorSelectDialog.IsVisible = true;
+        InitColorDialog(sender, _fillColor);
+    }
+
+    private void InitColorDialog(object sender, Color color)
+    {
+        this.sender = sender;
+
+        redSlider.Value = (int)(color.Red * 255);
+        greenSlider.Value = (int)(color.Green * 255);
+        blueSlider.Value = (int)(color.Blue * 255);
+
+        colorValue.BackgroundColor = color;
     }
 }
 

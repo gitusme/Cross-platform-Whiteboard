@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <sys:String x:Key="General">
+        General
+    </sys:String>
+    <sys:String x:Key="Tool">
+        Tool
+    </sys:String>
+    <sys:String x:Key="Shape">
+        Shape
+    </sys:String>
+    <sys:String x:Key="Size">
+        Size
+    </sys:String>
+    <sys:String x:Key="Stroke">
+        Stroke
+    </sys:String>
+    <sys:String x:Key="Fill">
+        Fill
+    </sys:String>
+    <sys:String x:Key="Background">
+        Background
+    </sys:String>
+    <sys:String x:Key="Color">
+        Color
+    </sys:String>
+    <sys:String x:Key="Red">
+        Red
+    </sys:String>
+    <sys:String x:Key="Green">
+        Green
+    </sys:String>
+    <sys:String x:Key="Blue">
+        Blue
+    </sys:String>
+    <sys:String x:Key="OK">
+        OK
+    </sys:String>
+    <sys:String x:Key="Cancel">
+        Cancel
+    </sys:String>
+    <sys:String x:Key="Save">
+        Save
+    </sys:String>
+    <sys:String x:Key="RequestInputFileName">
+        Please input file name:
+    </sys:String>
+    <sys:String x:Key="ContactAuthor">
+        Contact Author
+    </sys:String>
+    <sys:String x:Key="About">
+        About
+    </sys:String>
+</ResourceDictionary>

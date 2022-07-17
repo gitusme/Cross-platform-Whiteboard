@@ -79,6 +79,7 @@
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 		<MauiImage Include="Resources\Splash\tool_color_transparent.svg" />
+		<MauiImage Include="Resources\Splash\tool_color_other.svg" />
 		<MauiImage Include="Resources\Splash\tool_color_white.svg" />
 		<MauiImage Include="Resources\Splash\about.svg">
 		  <BaseSize>168,208</BaseSize>
@@ -125,6 +126,7 @@
 	  <None Remove="Resources\Splash\tool_color_black.svg" />
 	  <None Remove="Resources\Splash\tool_color_blue.svg" />
 	  <None Remove="Resources\Splash\tool_color_green.svg" />
+	  <None Remove="Resources\Splash\tool_color_other.svg" />
 	  <None Remove="Resources\Splash\tool_color_red.svg" />
 	  <None Remove="Resources\Splash\tool_color_transparent.svg" />
 	  <None Remove="Resources\Splash\tool_color_yellow.svg" />
@@ -163,6 +165,12 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="AboutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Local\Language-zh.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Local\Language-en.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
